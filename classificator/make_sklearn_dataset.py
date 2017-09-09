@@ -3,8 +3,8 @@ import numpy as np
 import math
 
 NUMBER_EXAMPLES = 150
-NUMBER_CLASSES = 2
-file_path_list = ["data/scew/", "data/nut/"]
+NUMBER_CLASSES = 4
+file_path_list = ["data/dataset1/scew/", "data/dataset1/nut/", "data/dataset1/profile_20/", "data/dataset1/profile_40/"]
 file_saving_path = "data/"
 
 def centroid(contour):

@@ -8,10 +8,10 @@ THRESHOLD_KERNEL = 11
 THRESHOLD_PARAMETER = 3
 DILATE_ITER = 4
 ERODE_ITER = 2
-DATA_PATH = 'data/scew/' # path to save contours
+DATA_PATH = 'data/profile_20/' # path to save contours
 
 cam = cv2.VideoCapture(1)
-number = 100
+number = 1
 while True:
     _, frame = cam.read()
 
