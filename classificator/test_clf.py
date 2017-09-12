@@ -9,27 +9,20 @@ import pickle
 file = open('saved_model', 'rb')
 clf = pickle.load(file)
 
+test_data = np.load("data/cnt_test_data.npy")
+test_target = np.load("data/cnt_test_targets.npy")
 
-predict_data = []  # FOR TESTS
+prediction = clf.predict(test_data)
 
-data = np.load("data/dataset1/profile_40/158.npz")
-cnt = data['arr_0']
-f1, f2 = ft.finding_features(cnt)
-feature_vector = [f1,f2]
-predict_data.append(feature_vector)
+# print(test_target)
+# print(prediction)
 
-data = np.load("data/dataset1/profile_20/156.npz")
-cnt = data['arr_0']
-f1, f2 = ft.finding_features(cnt)
-feature_vector = [f1,f2]
-predict_data.append(feature_vector)
+n = prediction.size
+a = 0
+for i in range(n):
+	if test_target[i] == prediction[i]:
+		a += 1
 
-data = np.load("data/dataset1/scew/153.npz")
-cnt = data['arr_0']
-f1, f2 = ft.finding_features(cnt)
-feature_vector = [f1,f2]
-predict_data.append(feature_vector)
+correctness = a / n * 100
 
-
-a = clf.predict(predict_data)
-print(a)
+print("Correctness on test data are ", correctness, "%")
