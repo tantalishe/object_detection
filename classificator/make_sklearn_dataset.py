@@ -1,33 +1,12 @@
 import cv2
 import numpy as np
 import math
+import features as ft
 
 NUMBER_EXAMPLES = 150
 NUMBER_CLASSES = 4
 file_path_list = ["data/dataset1/scew/", "data/dataset1/nut/", "data/dataset1/profile_20/", "data/dataset1/profile_40/"]
 file_saving_path = "data/"
-
-def centroid(contour):
-	M = cv2.moments(contour)
-	cx = int(M['m10']/M['m00'])
-	cy = int(M['m01']/M['m00'])
-	return cx, cy
-
-def rasst(x1, y1, x2, y2):
-	d = math.hypot(x2 - x1, y2 - y1)
-	return d
-
-def finding_features(cnt):
-	rect = cv2.minAreaRect(cnt)
-	points = cv2.boxPoints(rect)
-	x1, y1 = rect[0]
-	w, h = rect[1]
-	x2, y2 = centroid(cnt)
-	dist = rasst(x1, y1, x2, y2)
-	dist_feature = dist / max(rect[1])
-	proportion_feature = max(w,h) / min(w,h)
-	return dist_feature, proportion_feature
-
 
 data_list = []
 target_list = []
@@ -43,7 +22,7 @@ for target_number in range(NUMBER_CLASSES):
 		data = np.load(filename)
 		cnt = data['arr_0']
 
-		f1, f2 = finding_features(cnt) # FINDING FEATURES
+		f1, f2 = ft.finding_features(cnt) # FINDING FEATURES
 
 		feature_vector = [f1,f2] # APPEND IT INTO DATASET
 		data_list.append(feature_vector)

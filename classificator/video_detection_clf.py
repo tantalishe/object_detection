@@ -2,6 +2,7 @@ import cv2
 import numpy as np
 from sklearn import datasets
 from sklearn.svm import SVC
+import features as ft
 import math
 import pickle
 
@@ -11,31 +12,10 @@ THRESHOLD_PARAMETER = 4 # 3
 DILATE_ITER = 4
 ERODE_ITER = 2
 
-def centroid(contour):
-    M = cv2.moments(contour)
-    cx = int(M['m10']/M['m00'])
-    cy = int(M['m01']/M['m00'])
-    return cx, cy
-
-def rasst(x1, y1, x2, y2):
-    d = math.hypot(x2 - x1, y2 - y1)
-    return d
-
-def finding_features(cnt):
-    rect = cv2.minAreaRect(cnt)
-    points = cv2.boxPoints(rect)
-    x1, y1 = rect[0]
-    w, h = rect[1]
-    x2, y2 = centroid(cnt)
-    dist = rasst(x1, y1, x2, y2)
-    dist_feature = dist / max(rect[1])
-    proportion_feature = max(w,h) / min(w,h)
-    return dist_feature, proportion_feature
-
 
 file = open('saved_model', 'rb')
 clf = pickle.load(file)
-cam = cv2.VideoCapture(1)
+cam = cv2.VideoCapture(0)
 number = 1
 while True:
     _, frame = cam.read()
@@ -59,7 +39,7 @@ while True:
         if area > 500:
 
             predict_data = []
-            f1, f2 = finding_features(cnt)
+            f1, f2 = ft.finding_features(cnt)
             feature_vector = [f1,f2]
             predict_data.append(feature_vector)
             object_id = clf.predict(predict_data)
@@ -73,7 +53,7 @@ while True:
             elif object_id[0] == 3:
                 text = 'profile_40'
 
-            x, y = centroid(cnt)
+            x, y = ft.centroid(cnt)
             text_pos = (x, y)
             cv2.drawContours(frame, cnt, -1, (255, 255, 0),2)
             cv2.putText(frame, text, text_pos,
