@@ -6,7 +6,7 @@ import features as ft
 NUMBER_TRAINING_EXAMPLES = 150
 NUMBER_TEST_EXAMPLES = 10
 NUMBER_CLASSES = 4
-file_path_list = ["data/dataset1/scew/", "data/dataset1/nut/", "data/dataset1/profile_20/", "data/dataset1/profile_40/"]
+file_path_list = ["data/dataset1/scew_test/", "data/dataset1/nut/", "data/dataset1/profile_20/", "data/dataset1/profile_40/"]
 file_saving_path = "data/"
 
 
