@@ -24,9 +24,7 @@ for target_number in range(NUMBER_CLASSES):
 		data = np.load(filename)
 		cnt = data['arr_0']
 
-		f1, f2 = ft.finding_features(cnt) # FINDING FEATURES
-
-		feature_vector = [f1,f2] # APPEND IT INTO DATASET
+		feature_vector = ft.finding_features(cnt) # FINDING FEATURES AND APPEND IT TO SET
 		data_list.append(feature_vector)
 		target_list.append(target_number)
 
@@ -52,9 +50,7 @@ for target_number in range(NUMBER_CLASSES):
 		data = np.load(filename)
 		cnt = data['arr_0']
 
-		f1, f2 = ft.finding_features(cnt) # FINDING FEATURES
-
-		feature_vector = [f1,f2] # APPEND IT INTO DATASET
+		feature_vector = ft.finding_features(cnt) # FINDING FEATURES AND APPEND IT TO SET
 		test_data_list.append(feature_vector)
 		test_target_list.append(target_number)
 
