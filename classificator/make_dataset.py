@@ -2,20 +2,20 @@ import cv2
 import time
 import numpy as np
 
-SHOT_TIME = 0.200 # sec
-BLUR = 9
+SHOT_TIME = 0.200 # delay between shots [sec]
+BLUR = 3
 THRESHOLD_KERNEL = 11
 THRESHOLD_PARAMETER = 3
 DILATE_ITER = 4
 ERODE_ITER = 2
-DATA_PATH = 'data/profile_20/' # path to save contours
+DATA_PATH = 'data/dataset1/scew_test/' # path to saving contours
 
 cam = cv2.VideoCapture(1)
-number = 1
+number = 0
 while True:
     _, frame = cam.read()
 
-    image = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+    image = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY) # READING AND FILTERING IMAGE
     image = cv2.medianBlur(image, BLUR)
     thres = cv2.adaptiveThreshold(image, 255, cv2.ADAPTIVE_THRESH_MEAN_C, cv2.THRESH_BINARY,THRESHOLD_KERNEL,THRESHOLD_PARAMETER)
     v = np.median(image)
@@ -28,7 +28,7 @@ while True:
 
     _, contours, hierarchy = cv2.findContours(edged.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
 
-    for cnt in contours:
+    for cnt in contours: #SAVIN LARGE CONTOURS
         area = cv2.contourArea(cnt)
         # print(area)
         if area > 500:
@@ -40,17 +40,6 @@ while True:
             np.savez(name, cnt)
             cv2.drawContours(frame, cnt, -1, (0, 0, 255), 3)
             print('shot done  ', number)
-
-
-    # print(len(contours))
-    # if len(contours) == 1:
-    #     l = cv2.arcLength(contours[0], True)
-    #     cnt = cv2.approxPolyDP(contours[0], 0.01 * l, True)
-    #     name = DATA_PATH + str(number)
-    #     number += 1
-    #     np.savez(name, cnt)
-    #     cv2.drawContours(image, cnt, -1, (0, 0, 255), 3)
-    #     print('shot done  ', number)
 
     cv2.imshow("frame", frame)
 

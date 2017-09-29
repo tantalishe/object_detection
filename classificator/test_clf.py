@@ -17,7 +17,7 @@ prediction = clf.predict(test_data)
 # print(test_target)
 # print(prediction)
 
-n = prediction.size
+n = prediction.size # CHECK CORRECTNESS
 a = 0
 for i in range(n):
 	if test_target[i] == prediction[i]:

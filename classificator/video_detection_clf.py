@@ -6,21 +6,21 @@ import features as ft
 import math
 import pickle
 
-BLUR = 9
+BLUR = 3
 THRESHOLD_KERNEL = 7 # 11
 THRESHOLD_PARAMETER = 4 # 3
 DILATE_ITER = 4
 ERODE_ITER = 2
 
 
-file = open('saved_model', 'rb')
+file = open('saved_model', 'rb')  # loading saved classificator
 clf = pickle.load(file)
-cam = cv2.VideoCapture(0)
+cam = cv2.VideoCapture(1)
 number = 1
 while True:
     _, frame = cam.read()
 
-    image = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+    image = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY) # reanding and filterinf image
     image = cv2.medianBlur(image, BLUR)
     thres = cv2.adaptiveThreshold(image, 255, cv2.ADAPTIVE_THRESH_MEAN_C, cv2.THRESH_BINARY,THRESHOLD_KERNEL,THRESHOLD_PARAMETER)
     v = np.median(image)
@@ -38,7 +38,7 @@ while True:
         # print(area)
         if area > 500:
 
-            predict_data = []
+            predict_data = []  # recognizing large contoours
             f1, f2 = ft.finding_features(cnt)
             feature_vector = [f1,f2]
             predict_data.append(feature_vector)

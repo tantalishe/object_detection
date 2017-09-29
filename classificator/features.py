@@ -17,22 +17,23 @@ def centroid(contour):
 	cy = int(M['m01']/M['m00'])
 	return cx, cy
 
-def rasst(x1, y1, x2, y2):
+def dst(x1, y1, x2, y2):
 	d = math.hypot(x2 - x1, y2 - y1)
 	return d
 
 def finding_features(cnt):
-	circle = getSampleContour("data/dataset1/test/rectangle1.jpg")
+	circle = getSampleContour("data/dataset1/test/circle.jpg")
 
 	rect = cv2.minAreaRect(cnt)
 	points = cv2.boxPoints(rect)
 	x1, y1 = rect[0]
 	w, h = rect[1]
 	x2, y2 = centroid(cnt)
-	dist = rasst(x1, y1, x2, y2)
+	dist = dst(x1, y1, x2, y2)
 
 	dist_feature = dist / max(rect[1]) # DISTANCE BETWEEN CENTROID AND CENTER MINAREARECT
 	proportion_feature = max(w,h) / min(w,h) # ASPECT RATIO OF MINAREARECT
 	eps_circle_feature = cv2.matchShapes(cnt, circle, 1, 0) # SLOZHNO
 	feature_vector = [dist_feature, proportion_feature, eps_circle_feature]
+	
 	return feature_vector
