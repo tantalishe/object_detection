@@ -8,6 +8,7 @@ import pickle
 
 file = open('saved_model', 'rb')
 clf = pickle.load(file)
+file.close()
 
 test_data = np.load("data/cnt_test_data.npy")
 test_target = np.load("data/cnt_test_targets.npy")

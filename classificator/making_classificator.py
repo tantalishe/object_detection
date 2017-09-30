@@ -15,3 +15,4 @@ clf.fit(data, target)
 
 file = open('saved_model', 'wb')
 pickle.dump(clf, file)
+file.close()
