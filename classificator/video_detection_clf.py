@@ -39,8 +39,7 @@ while True:
         if area > 500:
 
             predict_data = []  # recognizing large contoours
-            f1, f2 = ft.finding_features(cnt)
-            feature_vector = [f1,f2]
+            feature_vector = ft.finding_features(cnt)
             predict_data.append(feature_vector)
             object_id = clf.predict(predict_data)
 
