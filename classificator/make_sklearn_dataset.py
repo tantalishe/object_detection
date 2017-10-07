@@ -6,6 +6,7 @@ import features as ft
 NUMBER_TRAINING_EXAMPLES = 150
 NUMBER_TEST_EXAMPLES = 10
 NUMBER_CLASSES = 4
+FEATURE_TYPE = "humoments"
 file_path_list = ["data/dataset1/scew_test/", "data/dataset1/nut/", "data/dataset1/profile_20/", "data/dataset1/profile_40/"]
 file_saving_path = "data/"
 
@@ -24,7 +25,7 @@ for target_number in range(NUMBER_CLASSES):
 		data = np.load(filename)
 		cnt = data['arr_0']
 
-		feature_vector = ft.finding_features(cnt) # FINDING FEATURES AND APPEND IT TO SET
+		feature_vector = ft.finding_features(cnt, ftype = FEATURE_TYPE) # FINDING FEATURES AND APPEND IT TO SET
 		data_list.append(feature_vector)
 		target_list.append(target_number)
 
@@ -50,7 +51,7 @@ for target_number in range(NUMBER_CLASSES):
 		data = np.load(filename)
 		cnt = data['arr_0']
 
-		feature_vector = ft.finding_features(cnt) # FINDING FEATURES AND APPEND IT TO SET
+		feature_vector = ft.finding_features(cnt, ftype = FEATURE_TYPE) # FINDING FEATURES AND APPEND IT TO SET
 		test_data_list.append(feature_vector)
 		test_target_list.append(target_number)
 

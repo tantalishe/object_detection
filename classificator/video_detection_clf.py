@@ -11,6 +11,7 @@ THRESHOLD_KERNEL = 7 # 11
 THRESHOLD_PARAMETER = 4 # 3
 DILATE_ITER = 4
 ERODE_ITER = 2
+FEATURE_TYPE = "humoments"
 
 
 file = open('saved_model', 'rb')  # loading saved classificator
@@ -39,7 +40,7 @@ while True:
         if area > 500:
 
             predict_data = []  # recognizing large contoours
-            feature_vector = ft.finding_features(cnt)
+            feature_vector = ft.finding_features(cnt, ftype = FEATURE_TYPE)
             predict_data.append(feature_vector)
             object_id = clf.predict(predict_data)
 

@@ -5,9 +5,13 @@ import features as ft
 NUMBER_TRAINING_EXAMPLES = 150
 NUMBER_TEST_EXAMPLES = 10
 NUMBER_CLASSES = 4
-NUMBER_FEATURES = 3  # TODO: making this adaptive
+FEATURE_TYPE = "humoments"
 VISUALISATION = 1 # TODO make graphics (2)
 file_path_list = ["data/dataset1/scew_test/", "data/dataset1/nut/", "data/dataset1/profile_20/", "data/dataset1/profile_40/"]
+if FEATURE_TYPE == "humoments":
+	NUMBER_FEATURES = 7
+elif FEATURE_TYPE == "standert":
+	NUMBER_FEATURES = 3
 
 data_features = np.zeros((NUMBER_CLASSES, NUMBER_FEATURES, NUMBER_TRAINING_EXAMPLES))
 data_analysed = np.zeros((NUMBER_CLASSES, NUMBER_FEATURES, 2))
@@ -23,7 +27,7 @@ for target_number in range(NUMBER_CLASSES):
 		data = np.load(filename)
 		cnt = data['arr_0']
 
-		feature_vector = ft.finding_features(cnt)
+		feature_vector = ft.finding_features(cnt, ftype = FEATURE_TYPE)
 
 		for f in range(NUMBER_FEATURES):
 			data_features[target_number, f, n] = feature_vector[f]
