@@ -5,6 +5,7 @@ from sklearn.svm import SVC
 import features as ft
 import math
 import pickle
+import time
 
 BLUR = 3
 THRESHOLD_KERNEL = 7 # 11
@@ -12,8 +13,12 @@ THRESHOLD_PARAMETER = 4 # 3
 DILATE_ITER = 4
 ERODE_ITER = 2
 FEATURE_TYPE = "humoments"
+FPS_VISUALISATION = True
+FPS_VISUALISATION_DELAY = 3 # [sec]
 
 
+start_time = time.time()
+frame_counter = 0
 file = open('saved_model', 'rb')  # loading saved classificator
 clf = pickle.load(file)
 cam = cv2.VideoCapture(1)
@@ -59,7 +64,11 @@ while True:
             cv2.putText(frame, text, text_pos,
                             cv2.FONT_HERSHEY_SIMPLEX, fontScale=0.8,
                             color=(0, 255, 0), thickness=2)
-            
+    frame_counter += 1    
+    if FPS_VISUALISATION and (time.time() - start_time) > FPS_VISUALISATION_DELAY:
+        print("FPS:", frame_counter / (time.time() - start_time))
+        start_time = time.time()
+        frame_counter = 0
 
     cv2.imshow("frame", frame)
     cv2.imshow("thres", thres)
