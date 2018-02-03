@@ -13,7 +13,7 @@ This thing transform ur set of contours to valid dataset for use in scikit-learn
 Script for making classifier.
 
 ## video_detection_clf.py
-Script for check classifier work in videostream from ur webcam.
+Script for check classifier work on videostream from ur webcam.
 
 ## image_detection_clf.py
 Same for single image.
