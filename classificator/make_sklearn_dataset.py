@@ -3,11 +3,11 @@ import numpy as np
 import math
 import features as ft
 
-NUMBER_TRAINING_EXAMPLES = 150
-NUMBER_TEST_EXAMPLES = 10
+NUMBER_TRAINING_EXAMPLES = 280
+NUMBER_TEST_EXAMPLES = 120
 NUMBER_CLASSES = 4
 FEATURE_TYPE = "humoments"
-file_path_list = ["data/dataset1/scew_test/", "data/dataset1/nut/", "data/dataset1/profile_20/", "data/dataset1/profile_40/"]
+file_path_list = ["data/dataset2/scew/", "data/dataset2/nut/", "data/dataset2/profile_20/", "data/dataset2/profile_40/"]
 file_saving_path = "data/"
 
 
@@ -33,6 +33,7 @@ for target_number in range(NUMBER_CLASSES):
 data_list = np.asarray(data_list) # TRANSFORMING INTO NP FORMAT
 target_list = np.asarray(target_list)
 s = np.arange(NUMBER_EXAMPLES*NUMBER_CLASSES) # SHUFFLE FULL DATASET
+np.random.shuffle(s)
 data_list[:] = data_list[s[:]]
 target_list[:] = target_list[s[:]]
 
